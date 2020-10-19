@@ -9,6 +9,7 @@
       crossorigin="anonymous"
     />
 
+    <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/cadastroTitulo.css" />
 
     <script
@@ -37,71 +38,77 @@
         />
       </a>
     </nav>
+    <main class="container">
+      <form class="form-horizontal" action="/titulos" method="POST">
+        <div class="card">
+          <div class="card-header">
+            <h2>Novo Título</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label for="descricao" class="col-sm-4 col-form-label text-right"
+                ><strong>Descrição</strong></label
+              >
+              <div class="col-sm-6">
+                <input
+                  type="text"
+                  name="descricao"
+                  id="descricao"
+                  class="form-control"
+                />
+              </div>
+            </div>
 
-    <form class="form-horizontal" action="">
-      <div class="card">
-        <div class="card-header">
-          <h2>Novo Título</h2>
+            <div class="form-group row">
+              <label
+                for="dataVencimento"
+                class="col-sm-4 col-form-label text-right"
+                ><strong>Data de vencimento</strong></label
+              >
+              <div class="col-sm-4">
+                <input
+                  type="text"
+                  name="dataVencimento"
+                  id="dataVencimento"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="valor" class="col-sm-4 col-form-label text-right"
+                ><strong>Valor</strong></label
+              >
+              <div class="col-sm-4">
+                <input
+                  type="text"
+                  name="valor"
+                  id="valor"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="status" class="col-sm-4 col-form-label text-right"
+                ><strong>Status</strong></label
+              >
+              <div class="col-sm-4">
+                <select name="status" id="status" class="custom-select">
+                  <option value="PENDENTE">Pendente</option>
+                  <option value="RECEBIDO">Recebido</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="offset-sm-4 col-sm-10">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="form-group row">
-            <label for="descricao" class="col-sm-2 col-form-label text-right"
-              ><strong>Descrição</strong></label
-            >
-            <div class="col-sm-4">
-              <input
-                type="text"
-                name="descricao"
-                id="descricao"
-                class="form-control"
-              />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label
-              for="dataVencimento"
-              class="col-sm-2 col-form-label text-right"
-              ><strong>Data de vencimento</strong></label
-            >
-            <div class="col-sm-2">
-              <input
-                type="text"
-                name="dataVencimento"
-                id="dataVencimento"
-                class="form-control"
-              />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="valor" class="col-sm-2 col-form-label text-right"
-              ><strong>Valor</strong></label
-            >
-            <div class="col-sm-2">
-              <input type="text" name="valor" id="valor" class="form-control" />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="status" class="col-sm-2 col-form-label text-right"
-              ><strong>Status</strong></label
-            >
-            <div class="col-sm-2">
-              <select name="status" id="status" class="custom-select">
-                <option value="pendente">Pendente</option>
-                <option value="recebido">Recebido</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <div class="offset-sm-2 col-sm-10">
-              <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
+      </form>
+    </main>
   </body>
 </html>
