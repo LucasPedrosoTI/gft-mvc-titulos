@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <link
@@ -40,6 +40,22 @@
     </nav>
     <main class="container">
       <form class="form-horizontal" action="/titulos" method="POST">
+        <div
+          class="alert alert-success"
+          role="alert"
+          th:if="${!#strings.isEmpty(mensagem)}"
+        >
+          <span th:text="${mensagem}"> Titulo cadastrado com sucesso! </span>
+
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <div class="card">
           <div class="card-header">
             <h2>Novo Título</h2>
