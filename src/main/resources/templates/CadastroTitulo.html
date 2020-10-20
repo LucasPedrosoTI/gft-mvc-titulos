@@ -111,8 +111,11 @@
               >
               <div class="col-sm-4">
                 <select name="status" id="status" class="custom-select">
-                  <option value="PENDENTE">Pendente</option>
-                  <option value="RECEBIDO">Recebido</option>
+                  <option
+                    th:each="status : ${allStatusTitulo}"
+                    th:value="${status}"
+                    th:text="${status.descricao}"
+                  ></option>
                 </select>
               </div>
             </div>
