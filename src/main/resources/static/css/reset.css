@@ -7,3 +7,14 @@ html {
   margin: 0;
   height: 100%;
 }
+
+.container {
+  display: flex;
+  height: 100%;
+}
+
+form.form-horizontal,
+.card {
+  margin: auto 0;
+  width: 100%;
+}

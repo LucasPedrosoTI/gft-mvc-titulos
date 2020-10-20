@@ -9,6 +9,7 @@ import com.gft.estudosmvc.repository.Titulos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +35,11 @@ public class TituloController {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject("mensagem", "Titulo salvo com sucesso!");
 		return mv;
+	}
+
+	@GetMapping
+	public String pesquisar() {
+		return "PesquisaTitulos";
 	}
 
 	@ModelAttribute("allStatusTitulo")
