@@ -14,9 +14,7 @@
     <div class="card">
       <div class="card-header d-flex justify-content-between">
         <h2>Pesquisa de Títulos</h2>
-        <a href="/titulos/novo" class="btn btn-link stretched-link"
-          >Novo título</a
-        >
+        <a href="/titulos/novo" class="btn btn-link">Novo título</a>
       </div>
       <div class="card-body">
         <table class="table table-bordered table-striped">
@@ -31,8 +29,25 @@
             </tr>
           </thead>
           <tbody>
+            <tr th:each="titulo : ${titulos}">
+              <td class="text-center" th:text="${titulo.id}"></td>
+              <td th:text="${titulo.descricao}"></td>
+              <td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
+              <td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
+              <td class="text-center">
+                <span
+                  class="badge"
+                  th:text="${titulo.status.descricao}"
+                  th:classappend="${titulo.pendente} ? 'badge-danger' : 'badge-success'"
+                ></span>
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
             <tr>
-              <td colspan="6">Nenhum título foi encontrado</td>
+              <td colspan="6" th:if="${#lists.isEmpty(titulos)}">
+                Nenhum título foi encontrado
+              </td>
             </tr>
           </tbody>
         </table>
