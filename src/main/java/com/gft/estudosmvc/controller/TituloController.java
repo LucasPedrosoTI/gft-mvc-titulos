@@ -9,10 +9,12 @@ import com.gft.estudosmvc.repository.Titulos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,14 +27,18 @@ public class TituloController {
 	@RequestMapping("/novo")
 	public ModelAndView pageNovoTitulo() {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		mv.addObject(new Titulo());
 		return mv;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView save(Titulo titulo) {
+	@PostMapping
+	public ModelAndView save(@Validated Titulo titulo, Errors errors) {
+		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		if (errors.hasErrors()) {
+			return mv;
+		}
 
 		titulos.save(titulo);
-		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject("mensagem", "Titulo salvo com sucesso!");
 		return mv;
 	}
