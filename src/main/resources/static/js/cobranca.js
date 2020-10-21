@@ -1,10 +1,13 @@
 $("#confirmacaoExclusaoModal").on("show.bs.modal", function (event) {
   const button = $(event.relatedTarget);
+
   const id = button.data("id");
   const descricao = button.data("descricao");
+
   const modal = $(this);
   const form = modal.find("form");
-  let action = form.attr("action");
+
+  let action = form.data("url-base");
 
   if (!action.endsWith("/")) {
     action += "/";
@@ -21,6 +24,6 @@ $("#confirmacaoExclusaoModal").on("show.bs.modal", function (event) {
     );
 });
 
-$("#confirmacaoExclusaoModal").on("hide.bs.modal", function (_event) {
-  $(this).find("form").attr("action", "/titulos/");
-});
+// $("#confirmacaoExclusaoModal").on("hide.bs.modal", function (_event) {
+//   $(this).find("form").attr("action", "/titulos/");
+// });
