@@ -24,6 +24,6 @@ $("#confirmacaoExclusaoModal").on("show.bs.modal", function (event) {
     );
 });
 
-// $("#confirmacaoExclusaoModal").on("hide.bs.modal", function (_event) {
-//   $(this).find("form").attr("action", "/titulos/");
-// });
+$(function () {
+  $('[rel="tooltip"]').tooltip();
+});

@@ -48,6 +48,9 @@
                 <a
                   class="btn btn-link"
                   th:href="@{/titulos/{id}(id=${titulo.id})}"
+                  title="Editar"
+                  rel="tooltip"
+                  data-placement="top"
                 >
                   <i data-feather="edit-2"></i>
                 </a>
@@ -57,6 +60,9 @@
                   data-toggle="modal"
                   data-target="#confirmacaoExclusaoModal"
                   th:attr="data-id=${titulo.id}, data-descricao=${titulo.descricao}"
+                  title="Excluir"
+                  rel="tooltip"
+                  data-placement="top"
                 >
                   <i data-feather="trash"></i>
                 </a>
