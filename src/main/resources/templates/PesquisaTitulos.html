@@ -11,6 +11,8 @@
   </head>
 
   <section layout:fragment="conteudo">
+    <div th:replace="MensagemGeral"></div>
+
     <div class="card">
       <div class="card-header d-flex justify-content-between">
         <h2>Pesquisa de Títulos</h2>
@@ -42,12 +44,21 @@
                 ></span>
               </td>
 
-              <td class="text-center">
+              <td class="text-center d-flex justify-content-around">
                 <a
                   class="btn btn-link"
                   th:href="@{/titulos/{id}(id=${titulo.id})}"
                 >
                   <i data-feather="edit-2"></i>
+                </a>
+
+                <a
+                  class="btn btn-link"
+                  data-toggle="modal"
+                  data-target="#confirmacaoExclusaoModal"
+                  th:attr="data-id=${titulo.id}, data-descricao=${titulo.descricao}"
+                >
+                  <i data-feather="trash"></i>
                 </a>
               </td>
             </tr>
@@ -59,6 +70,8 @@
           </tbody>
         </table>
       </div>
+
+      <div th:replace="DialogoConfirmacaoExclusao"></div>
     </div>
   </section>
 </html>

@@ -16,7 +16,8 @@
       method="POST"
       th:object="${titulo}"
     >
-      <div th:replace="Mensagem"></div>
+      <div th:replace="MensagemGeral"></div>
+      <div th:replace="MensagemErro"></div>
 
       <div class="card">
         <div class="card-header d-flex justify-content-between">
