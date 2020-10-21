@@ -31,7 +31,7 @@
             <div class="col-sm-6">
               <input
                 type="text"
-                name="descricao"
+                th:field="*{descricao}"
                 id="descricao"
                 class="form-control"
                 th:classappend="${#fields.hasErrors('descricao')} ? is-invalid"
@@ -48,7 +48,7 @@
             <div class="col-sm-4">
               <input
                 type="text"
-                name="dataVencimento"
+                th:field="*{dataVencimento}"
                 id="dataVencimento"
                 class="form-control"
                 th:classappend="${#fields.hasErrors('dataVencimento')} ? is-invalid"
@@ -63,7 +63,7 @@
             <div class="col-sm-4">
               <input
                 type="text"
-                name="valor"
+                th:field="*{valor}"
                 id="valor"
                 class="form-control"
                 th:classappend="${#fields.hasErrors('valor')} ? is-invalid"
@@ -76,7 +76,7 @@
               ><strong>Status</strong></label
             >
             <div class="col-sm-4">
-              <select name="status" id="status" class="custom-select">
+              <select th:field="*{status}" id="status" class="custom-select">
                 <option
                   th:each="status : ${allStatusTitulo}"
                   th:value="${status}"
