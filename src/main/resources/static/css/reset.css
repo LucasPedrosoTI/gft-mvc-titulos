@@ -17,3 +17,7 @@ section.conteudo {
   margin: auto 0;
   width: 100%;
 }
+
+svg {
+  width: 18px;
+}

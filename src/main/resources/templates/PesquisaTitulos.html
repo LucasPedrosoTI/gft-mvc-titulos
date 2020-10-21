@@ -17,7 +17,7 @@
         <a href="/titulos/novo" class="btn btn-link">Novo título</a>
       </div>
       <div class="card-body">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-responsive">
           <thead>
             <tr>
               <th class="text-center col-md-1">#</th>
@@ -42,7 +42,14 @@
                 ></span>
               </td>
 
-              <td class="text-center"></td>
+              <td class="text-center">
+                <a
+                  class="btn btn-link"
+                  th:href="@{/titulos/{id}(id=${titulo.id})}"
+                >
+                  <i data-feather="edit-2"></i>
+                </a>
+              </td>
             </tr>
             <tr>
               <td colspan="6" th:if="${#lists.isEmpty(titulos)}">
