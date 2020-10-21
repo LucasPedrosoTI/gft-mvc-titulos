@@ -1,16 +1,14 @@
 package com.gft.estudosmvc.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
 public enum StatusTitulo {
 
   PENDENTE("Pendente"), RECEBIDO("Recebido");
 
+  @Getter
   private String descricao;
 
-  StatusTitulo(String descricao) {
-    this.descricao = descricao;
-  }
-
-  public String getDescricao() {
-    return this.descricao;
-  }
 }

@@ -2,7 +2,6 @@ package com.gft.estudosmvc.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,6 +20,13 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 public class Titulo {
   @Id
@@ -29,6 +35,7 @@ public class Titulo {
 
   @NotBlank(message = "Descrição é obrigatória")
   @Size(max = 60, message = "A descrição não pode conter mais de 60 caracteres")
+
   private String descricao;
 
   @NotNull(message = "Data de vencimento é obrigatória")
@@ -46,83 +53,8 @@ public class Titulo {
                                // (0,1,2,etc)
   private StatusTitulo status;
 
-  public Titulo() {
-  }
-
-  public Titulo(Long id, String descricao, Date dataVencimento, BigDecimal valor, StatusTitulo status) {
-    this.id = id;
-    this.descricao = descricao;
-    this.dataVencimento = dataVencimento;
-    this.valor = valor;
-    this.status = status;
-  }
-
-  public Long getId() {
-    return this.id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getDescricao() {
-    return this.descricao;
-  }
-
-  public void setDescricao(String descricao) {
-    this.descricao = descricao;
-  }
-
-  public Date getDataVencimento() {
-    return this.dataVencimento;
-  }
-
-  public void setDataVencimento(Date dataVencimento) {
-    this.dataVencimento = dataVencimento;
-  }
-
-  public BigDecimal getValor() {
-    return this.valor;
-  }
-
-  public void setValor(BigDecimal valor) {
-    this.valor = valor;
-  }
-
-  public StatusTitulo getStatus() {
-    return this.status;
-  }
-
-  public void setStatus(StatusTitulo status) {
-    this.status = status;
-  }
-
   public boolean isPendente() {
     return StatusTitulo.PENDENTE.equals(this.status);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o == this)
-      return true;
-    if (!(o instanceof Titulo)) {
-      return false;
-    }
-    Titulo titulo = (Titulo) o;
-    return Objects.equals(id, titulo.id) && Objects.equals(descricao, titulo.descricao)
-        && Objects.equals(dataVencimento, titulo.dataVencimento) && Objects.equals(valor, titulo.valor)
-        && Objects.equals(status, titulo.status);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, descricao, dataVencimento, valor, status);
-  }
-
-  @Override
-  public String toString() {
-    return "{" + " id='" + getId() + "'" + ", descricao='" + getDescricao() + "'" + ", dataVencimento='"
-        + getDataVencimento() + "'" + ", valor='" + getValor() + "'" + ", status='" + getStatus() + "'" + "}";
   }
 
 }
