@@ -6,9 +6,9 @@ import java.util.List;
 import com.gft.estudosmvc.model.StatusTitulo;
 import com.gft.estudosmvc.model.Titulo;
 import com.gft.estudosmvc.repository.Titulos;
+import com.gft.estudosmvc.service.CadastroTituloService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +30,9 @@ public class TituloController {
 	@Autowired
 	private Titulos titulos;
 
+	@Autowired
+	private CadastroTituloService cadastroTituloService;
+
 	@RequestMapping("/novo")
 	public ModelAndView pageNovoTitulo() {
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
@@ -43,20 +46,20 @@ public class TituloController {
 			return CADASTRO_VIEW;
 		}
 		try {
-			titulos.save(titulo);
+			cadastroTituloService.save(titulo);
 
 			attributes.addFlashAttribute("mensagem", "Titulo salvo com sucesso!");
 
 			return "redirect:/titulos/novo";
 
-		} catch (DataIntegrityViolationException e) {
-			errors.rejectValue("dataVencimento", null, "Formato de data inválido");
+		} catch (IllegalArgumentException e) {
+			errors.rejectValue("dataVencimento", null, e.getMessage());
 			return CADASTRO_VIEW;
 		}
 	}
 
 	@GetMapping
-	public ModelAndView pesquisar() {
+	public ModelAndView search() {
 		List<Titulo> allTitulos = titulos.findAll();
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
 		mv.addObject("titulos", allTitulos);
@@ -73,9 +76,8 @@ public class TituloController {
 	}
 
 	@DeleteMapping("{id}")
-	// @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable("id") Long id, RedirectAttributes attributes) {
-		titulos.deleteById(id);
+		cadastroTituloService.delete(id);
 
 		attributes.addFlashAttribute("mensagem", "Titulo excluído com sucesso");
 		return "redirect:/titulos";
