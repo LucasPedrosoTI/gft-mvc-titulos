@@ -55,6 +55,11 @@
                 id="dataVencimento"
                 class="form-control"
                 th:classappend="${#fields.hasErrors('dataVencimento')} ? is-invalid"
+                data-provide="datepicker"
+                data-date-format="dd/mm/yyyy"
+                data-date-language="pt-BR"
+                data-date-autoclose="true"
+                data-date-today-highlight="true"
               />
             </div>
           </div>
