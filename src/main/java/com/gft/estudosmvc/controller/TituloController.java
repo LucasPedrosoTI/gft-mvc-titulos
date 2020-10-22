@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.gft.estudosmvc.model.StatusTitulo;
 import com.gft.estudosmvc.model.Titulo;
+import com.gft.estudosmvc.repository.TituloFilter;
 import com.gft.estudosmvc.repository.Titulos;
 import com.gft.estudosmvc.service.CadastroTituloService;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,9 +30,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class TituloController {
 
 	private static final String CADASTRO_VIEW = "CadastroTitulo";
-
-	@Autowired
-	private Titulos titulos;
 
 	@Autowired
 	private CadastroTituloService cadastroTituloService;
@@ -61,8 +60,9 @@ public class TituloController {
 	}
 
 	@GetMapping
-	public ModelAndView pesquisar() {
-		List<Titulo> allTitulos = titulos.findAll();
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
+		List<Titulo> allTitulos = cadastroTituloService.filtrar(filtro);
+
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
 		mv.addObject("titulos", allTitulos);
 		return mv;

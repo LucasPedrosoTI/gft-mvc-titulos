@@ -1,7 +1,10 @@
 package com.gft.estudosmvc.service;
 
+import java.util.List;
+
 import com.gft.estudosmvc.model.StatusTitulo;
 import com.gft.estudosmvc.model.Titulo;
+import com.gft.estudosmvc.repository.TituloFilter;
 import com.gft.estudosmvc.repository.Titulos;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,11 @@ public class CadastroTituloService {
     titulos.save(titulo);
 
     return StatusTitulo.RECEBIDO.getDescricao();
+  }
+
+  public List<Titulo> filtrar(TituloFilter filtro) {
+    final String descricao = filtro.getDescricao() == null ? "" : filtro.getDescricao();
+    return titulos.findByDescricaoContaining(descricao);
   }
 
 }
