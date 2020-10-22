@@ -36,7 +36,8 @@
               <td th:text="${titulo.descricao}"></td>
               <td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
               <td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
-              <td class="text-center">
+
+              <td class="text-center" th:attr="data-role=${titulo.id}">
                 <span
                   class="badge"
                   th:text="${titulo.status.descricao}"
@@ -65,6 +66,18 @@
                   data-placement="top"
                 >
                   <i data-feather="trash"></i>
+                </a>
+
+                <a
+                  th:if="${titulo.pendente}"
+                  class="btn btn-link js-atualizar-status"
+                  title="Receber"
+                  rel="tooltip"
+                  data-placement="top"
+                  th:attr="data-id=${titulo.id}"
+                  th:href="@{/titulos/{id}/receber(id=${titulo.id})}"
+                >
+                  <i data-feather="check-circle"></i>
                 </a>
               </td>
             </tr>

@@ -31,4 +31,30 @@ $(function () {
     thousands: ".",
     allowZero: true,
   });
+
+  $(".js-atualizar-status").on("click", async function (event) {
+    event.preventDefault();
+
+    const botaoReceber = $(event.currentTarget);
+    const url = botaoReceber.attr("href");
+
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+      });
+
+      if (response.ok) {
+        const id = botaoReceber.data("id");
+        const status = await response.text();
+        $("[data-role=" + id + "]").html(
+          '<span class="badge badge-success">' + status + "</span>"
+        );
+
+        botaoReceber.hide();
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Erro recebendo cobrança");
+    }
+  });
 });

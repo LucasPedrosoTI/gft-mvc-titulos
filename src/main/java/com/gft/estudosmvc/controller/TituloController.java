@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,19 +36,19 @@ public class TituloController {
 	private CadastroTituloService cadastroTituloService;
 
 	@RequestMapping("/novo")
-	public ModelAndView pageNovoTitulo() {
+	public ModelAndView paginaNovoTitulo() {
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(new Titulo());
 		return mv;
 	}
 
 	@PostMapping
-	public String save(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {
+	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {
 		if (errors.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
 		try {
-			cadastroTituloService.save(titulo);
+			cadastroTituloService.salvar(titulo);
 
 			attributes.addFlashAttribute("mensagem", "Titulo salvo com sucesso!");
 
@@ -59,7 +61,7 @@ public class TituloController {
 	}
 
 	@GetMapping
-	public ModelAndView search() {
+	public ModelAndView pesquisar() {
 		List<Titulo> allTitulos = titulos.findAll();
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
 		mv.addObject("titulos", allTitulos);
@@ -67,7 +69,7 @@ public class TituloController {
 	}
 
 	@GetMapping("{id}")
-	public ModelAndView edit(@PathVariable("id") Titulo titulo) {
+	public ModelAndView editar(@PathVariable("id") Titulo titulo) {
 
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(titulo);
@@ -76,11 +78,16 @@ public class TituloController {
 	}
 
 	@DeleteMapping("{id}")
-	public String delete(@PathVariable("id") Long id, RedirectAttributes attributes) {
-		cadastroTituloService.delete(id);
+	public String deletar(@PathVariable("id") Long id, RedirectAttributes attributes) {
+		cadastroTituloService.deletar(id);
 
 		attributes.addFlashAttribute("mensagem", "Titulo excluído com sucesso");
 		return "redirect:/titulos";
+	}
+
+	@PutMapping("{id}/receber")
+	public @ResponseBody String receber(@PathVariable("id") Long id) {
+		return cadastroTituloService.receber(id);
 	}
 
 	@ModelAttribute("allStatusTitulo")

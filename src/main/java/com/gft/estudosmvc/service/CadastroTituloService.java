@@ -1,5 +1,6 @@
 package com.gft.estudosmvc.service;
 
+import com.gft.estudosmvc.model.StatusTitulo;
 import com.gft.estudosmvc.model.Titulo;
 import com.gft.estudosmvc.repository.Titulos;
 
@@ -12,7 +13,7 @@ public class CadastroTituloService {
   @Autowired
   private Titulos titulos;
 
-  public void save(Titulo titulo) {
+  public void salvar(Titulo titulo) {
     try {
       titulos.save(titulo);
 
@@ -21,8 +22,16 @@ public class CadastroTituloService {
     }
   }
 
-  public void delete(Long id) {
+  public void deletar(Long id) {
     titulos.deleteById(id);
+  }
+
+  public String receber(Long id) {
+    Titulo titulo = titulos.findById(id).get();
+    titulo.setStatus(StatusTitulo.RECEBIDO);
+    titulos.save(titulo);
+
+    return StatusTitulo.RECEBIDO.getDescricao();
   }
 
 }
