@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
@@ -52,6 +54,10 @@ public class Titulo {
   @Enumerated(EnumType.STRING) // Para salvar no DB de acordo com a string escolhida e não o padrão "ordinal"
                                // (0,1,2,etc)
   private StatusTitulo status;
+
+  @ManyToOne
+  @JoinColumn(name = "usuario_id")
+  private Usuario usuario;
 
   public boolean isPendente() {
     return StatusTitulo.PENDENTE.equals(this.status);

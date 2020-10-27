@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html
+  lang="pt-BR"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{LayoutPadrao}"
+>
+  <head>
+    <title>Titulos - Cadastra</title>
+  </head>
+
+  <section layout:fragment="conteudo">
+    <h1>Cadastrar</h1>
+
+    <form th:action="@{/usuarios/novo}" method="post" th:object="${usuario}">
+      <div th:replace="MensagemErro"></div>
+      <input type="hidden" th:field="*{id}" />
+
+      <p class="form-group">
+        <label for="email">E-mail</label>:
+        <input
+          class="form-control"
+          type="email"
+          id="email"
+          autofocus="autofocus"
+          required="required"
+          th:field="*{email}"
+          th:classappend="${#fields.hasErrors('email')} ? is-invalid"
+        />
+      </p>
+      <p>
+        <label for="senha">Senha</label>:
+        <input
+          class="form-control"
+          type="password"
+          id="senha"
+          th:field="*{senha}"
+          required
+          th:classappend="${#fields.hasErrors('senha')} ? is-invalid"
+        />
+      </p>
+      <button class="btn btn-primary" type="submit">Cadastrar</button>
+      <a href="/usuarios/login" class="btn btn-danger">Cancelar</a>
+    </form>
+  </section>
+</html>

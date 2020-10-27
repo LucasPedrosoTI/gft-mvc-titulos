@@ -7,13 +7,13 @@ $("#confirmacaoExclusaoModal").on("show.bs.modal", function (event) {
   const modal = $(this);
   const form = modal.find("form");
 
-  let action = form.data("url-base");
+  let action = location.pathname;
 
-  if (!action.endsWith("/")) {
-    action += "/";
+  if (action.endsWith("/")) {
+    action = action.substr(0, action.lastIndexOf("/"));
   }
 
-  form.attr("action", action + id);
+  form.attr("action", `${action}/${id}`);
 
   modal
     .find(".modal-body span")

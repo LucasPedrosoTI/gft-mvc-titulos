@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.gft.estudosmvc.model.StatusTitulo;
 import com.gft.estudosmvc.model.Titulo;
+import com.gft.estudosmvc.model.Usuario;
 import com.gft.estudosmvc.repository.TituloFilter;
 import com.gft.estudosmvc.repository.Titulos;
+import com.gft.estudosmvc.repository.Usuarios;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,8 +18,15 @@ public class CadastroTituloService {
   @Autowired
   private Titulos titulos;
 
-  public void salvar(Titulo titulo) {
+  @Autowired
+  Usuarios usuarios;
+
+  public void salvar(Long usuarioId, Titulo titulo) {
     try {
+      Usuario usuario = usuarios.getOne(usuarioId);
+
+      titulo.setUsuario(usuario);
+
       titulos.save(titulo);
 
     } catch (DataIntegrityViolationException e) {
@@ -37,9 +46,9 @@ public class CadastroTituloService {
     return StatusTitulo.RECEBIDO.getDescricao();
   }
 
-  public List<Titulo> filtrar(TituloFilter filtro) {
+  public List<Titulo> filtrar(Long usuarioId, TituloFilter filtro) {
     final String descricao = filtro.getDescricao() == null ? "" : filtro.getDescricao();
-    return titulos.findByDescricaoContaining(descricao);
+    return titulos.findByUsuarioIdAndDescricaoContaining(usuarioId, descricao);
   }
 
 }

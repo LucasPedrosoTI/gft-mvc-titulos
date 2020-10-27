@@ -3,10 +3,10 @@ package com.gft.estudosmvc.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import com.gft.estudosmvc.Constants;
 import com.gft.estudosmvc.model.StatusTitulo;
 import com.gft.estudosmvc.model.Titulo;
 import com.gft.estudosmvc.repository.TituloFilter;
-import com.gft.estudosmvc.repository.Titulos;
 import com.gft.estudosmvc.service.CadastroTituloService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/titulos")
+@RequestMapping("/usuarios/{usuarioId}/titulos")
 public class TituloController {
 
 	private static final String CADASTRO_VIEW = "CadastroTitulo";
@@ -35,23 +34,26 @@ public class TituloController {
 	private CadastroTituloService cadastroTituloService;
 
 	@RequestMapping("/novo")
-	public ModelAndView paginaNovoTitulo() {
+	public ModelAndView paginaNovoTitulo(@PathVariable Long usuarioId) {
+
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
+
 		mv.addObject(new Titulo());
 		return mv;
 	}
 
 	@PostMapping
-	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {
+	public String salvar(@PathVariable("usuarioId") Long usuarioId, @Validated Titulo titulo, Errors errors,
+			RedirectAttributes attributes) {
 		if (errors.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
 		try {
-			cadastroTituloService.salvar(titulo);
+			cadastroTituloService.salvar(usuarioId, titulo);
 
 			attributes.addFlashAttribute("mensagem", "Titulo salvo com sucesso!");
 
-			return "redirect:/titulos/novo";
+			return String.format(Constants.REDIRECT_USUARIO_TITULOS, String.valueOf(usuarioId));
 
 		} catch (IllegalArgumentException e) {
 			errors.rejectValue("dataVencimento", null, e.getMessage());
@@ -60,8 +62,9 @@ public class TituloController {
 	}
 
 	@GetMapping
-	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
-		List<Titulo> allTitulos = cadastroTituloService.filtrar(filtro);
+	public ModelAndView pesquisar(@PathVariable("usuarioId") Long usuarioId,
+			@ModelAttribute("filtro") TituloFilter filtro) {
+		List<Titulo> allTitulos = cadastroTituloService.filtrar(usuarioId, filtro);
 
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
 		mv.addObject("titulos", allTitulos);
@@ -78,11 +81,12 @@ public class TituloController {
 	}
 
 	@DeleteMapping("{id}")
-	public String deletar(@PathVariable("id") Long id, RedirectAttributes attributes) {
-		cadastroTituloService.deletar(id);
+	public String deletar(@PathVariable("usuarioId") Long usuarioId, Titulo titulo, RedirectAttributes attributes) {
+
+		cadastroTituloService.deletar(titulo.getId());
 
 		attributes.addFlashAttribute("mensagem", "Titulo excluído com sucesso");
-		return "redirect:/titulos";
+		return String.format(Constants.REDIRECT_USUARIO_TITULOS, String.valueOf(usuarioId));
 	}
 
 	@PutMapping("{id}/receber")
@@ -93,5 +97,10 @@ public class TituloController {
 	@ModelAttribute("allStatusTitulo")
 	public List<StatusTitulo> allStatusTitulo() {
 		return Arrays.asList(StatusTitulo.values());
+	}
+
+	@ModelAttribute("usuarioId")
+	public Long usuarioId(@PathVariable Long usuarioId) {
+		return usuarioId;
 	}
 }

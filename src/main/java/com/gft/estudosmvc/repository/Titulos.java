@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface Titulos extends JpaRepository<Titulo, Long> {
 
-  public List<Titulo> findByDescricaoContaining(String descricao);
+  public List<Titulo> findByUsuarioIdAndDescricaoContaining(Long usuarioId, String descricao);
 }

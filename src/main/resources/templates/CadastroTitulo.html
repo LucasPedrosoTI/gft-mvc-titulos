@@ -12,7 +12,7 @@
   <section layout:fragment="conteudo">
     <form
       class="form-horizontal"
-      action="/titulos"
+      th:action="@{/usuarios/{id}/titulos(id=${usuarioId})}"
       method="POST"
       th:object="${titulo}"
     >
@@ -22,7 +22,11 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between">
           <h2>Novo Título</h2>
-          <a href="/titulos" class="btn btn-link">Voltar para a pesquisa</a>
+          <a
+            th:href="@{/usuarios/{id}/titulos(id=${usuarioId})}"
+            class="btn btn-link"
+            >Voltar para a pesquisa</a
+          >
         </div>
         <div class="card-body">
           <input type="hidden" th:field="*{id}" />
