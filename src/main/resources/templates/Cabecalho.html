@@ -16,12 +16,15 @@
       />
     </a>
 
-    <ul class="navbar-nav flex-row align-items-center">
+    <ul
+      th:if="${#httpServletRequest.remoteUser != null}"
+      class="navbar-nav flex-row align-items-center"
+    >
       <li class="nav-item mx-3" th:inline="text">
         Olá [[${#httpServletRequest.remoteUser}]]!
       </li>
       <li class="nav-item">
-        <form th:action="@{/usuarios/logout}" method="post">
+        <form th:action="@{/logout}" method="post">
           <button class="btn nav-link" type="submit">Sair</button>
         </form>
       </li>

@@ -2,6 +2,7 @@ package com.gft.estudosmvc.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ public class Usuario {
   @GeneratedValue(strategy = GenerationType.IDENTITY) // O DB é responsável por gerar o ID
   private Long id;
 
+  @Column(unique = true)
   @NotBlank(message = "Email é obrigatório")
   @Email(message = "Deve ser um e-mail válido")
   private String email;
@@ -31,6 +34,12 @@ public class Usuario {
   @NotBlank(message = "Senha é obrigatória")
   @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
   private String senha;
+
+  @NotBlank(message = "Nome é obrigatório")
+  private String nome;
+
+  @NotNull
+  private boolean admin;
 
   @OneToMany(mappedBy = "usuario")
   List<Titulo> titulos;

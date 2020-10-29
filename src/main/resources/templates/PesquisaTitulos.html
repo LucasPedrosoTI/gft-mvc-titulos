@@ -82,7 +82,7 @@
               <td class="text-center d-flex justify-content-around">
                 <a
                   class="btn btn-link"
-                  th:href="@{/usuarios/{usuarioId}/titulos/{id}(usuarioId=${usuarioId}, id=${titulo.id})}"
+                  th:href="@{/titulos/{id}(id=${titulo.id})}"
                   title="Editar"
                   rel="tooltip"
                   data-placement="top"
@@ -109,7 +109,7 @@
                   rel="tooltip"
                   data-placement="top"
                   th:attr="data-id=${titulo.id}"
-                  th:href="@{titulos/{id}/receber(id=${titulo.id})}"
+                  th:href="@{/titulos/{id}/receber(id=${titulo.id})}"
                 >
                   <i data-feather="check-circle"></i>
                 </a>

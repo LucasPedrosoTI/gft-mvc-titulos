@@ -1,0 +1,5 @@
+<authentication-manager id="customerAuthenticationManager" erase-credentials="false">
+  <authentication-provider user-service-ref="customerDetailsService">
+    <password-encoder hash="passwordEncoder" />
+  </authentication-provider>
+</authentication-manager>

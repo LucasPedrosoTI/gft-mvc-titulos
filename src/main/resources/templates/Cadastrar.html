@@ -7,7 +7,7 @@
   layout:decorate="~{LayoutPadrao}"
 >
   <head>
-    <title>Titulos - Cadastra</title>
+    <title>Titulos - Cadastrar</title>
   </head>
 
   <section layout:fragment="conteudo">
@@ -16,6 +16,20 @@
     <form th:action="@{/usuarios/novo}" method="post" th:object="${usuario}">
       <div th:replace="MensagemErro"></div>
       <input type="hidden" th:field="*{id}" />
+      <input type="hidden" th:field="*{admin}" />
+
+      <p class="form-group">
+        <label for="nome">Nome</label>:
+        <input
+          class="form-control"
+          type="text"
+          id="nome"
+          autofocus="autofocus"
+          required="required"
+          th:field="*{nome}"
+          th:classappend="${#fields.hasErrors('nome')} ? is-invalid"
+        />
+      </p>
 
       <p class="form-group">
         <label for="email">E-mail</label>:
@@ -41,7 +55,7 @@
         />
       </p>
       <button class="btn btn-primary" type="submit">Cadastrar</button>
-      <a href="/usuarios/login" class="btn btn-danger">Cancelar</a>
+      <a href="/login" class="btn btn-danger">Cancelar</a>
     </form>
   </section>
 </html>
