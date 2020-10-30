@@ -115,6 +115,6 @@ public class TituloController {
 
 	@ModelAttribute("usuarioId")
 	public Long usuarioId(@AuthenticationPrincipal UserDetails user) {
-		return usuarioService.getUsuarioIdByEmail(user.getUsername());
+		return getUsuarioId(user.getUsername());
 	}
 }
